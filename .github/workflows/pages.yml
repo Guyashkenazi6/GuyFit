@@ -1,5 +1,7 @@
-name: Deploy Pages (manual)
+name: Deploy Pages
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
@@ -21,16 +23,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node --check PulseFit/dist/app.js && node --check PulseFit/dist/sw.js
+      - run: node --check PulseFit/dist/legs.js && node --check PulseFit/dist/app.js && node --check PulseFit/dist/sw.js
       - run: pip install -r requirements-test.txt
       - run: python -m playwright install --with-deps ${{ matrix.browser }}
       - run: python -m unittest discover -s tests -v
         env:
           BROWSER: ${{ matrix.browser }}
   deploy:
+    if: github.ref == 'refs/heads/main'
     needs: test
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       pages: write
       id-token: write
     environment:
