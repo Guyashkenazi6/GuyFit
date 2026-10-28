@@ -1,0 +1,29 @@
+name: Tests
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, webkit]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check PulseFit/dist/app.js && node --check PulseFit/dist/sw.js
+      - run: pip install -r requirements-test.txt
+      - run: python -m playwright install --with-deps ${{ matrix.browser }}
+      - run: python -m unittest discover -s tests -v
+        env:
+          BROWSER: ${{ matrix.browser }}
