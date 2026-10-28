@@ -1,2 +1,2 @@
-.exercise-visual{background-image:var(--atlas);background-size:400% 200%}
-.exercise-visual.large{background-size:400% 200%}
+.exercise-visual{background-image:var(--atlas);background-size:var(--image-size,400% 200%);background-repeat:no-repeat}
+.exercise-visual.large{background-size:var(--image-size,400% 200%);background-repeat:no-repeat}
