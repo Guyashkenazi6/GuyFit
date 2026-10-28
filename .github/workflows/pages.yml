@@ -1,0 +1,52 @@
+name: Deploy Pages (manual)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  test:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser: [chromium, webkit]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check PulseFit/dist/app.js && node --check PulseFit/dist/sw.js
+      - run: pip install -r requirements-test.txt
+      - run: python -m playwright install --with-deps ${{ matrix.browser }}
+      - run: python -m unittest discover -s tests -v
+        env:
+          BROWSER: ${{ matrix.browser }}
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - name: Preserve repository path
+        run: |
+          mkdir -p _site/PulseFit
+          cp -R PulseFit/dist _site/PulseFit/dist
+          printf '%s\n' '<!doctype html><html lang="he"><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=./PulseFit/dist/"><title>PulseFit</title><a href="./PulseFit/dist/">PulseFit</a></html>' > _site/index.html
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
