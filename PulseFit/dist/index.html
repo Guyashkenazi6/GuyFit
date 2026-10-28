@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
+  <meta name="theme-color" content="#070b0d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="PulseFit">
+  <meta name="format-detection" content="telephone=no">
+  <title>PulseFit — מתכנן אימונים</title>
+  <meta name="description" content="אפליקציית אימוני כוח חכמה בעברית, מותאמת לאייפון ועובדת גם ללא חיבור.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="exercise-atlas.css">
+</head>
+<body>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+  <div id="appShell">
+    <header class="topbar">
+      <div><p class="eyebrow" id="todayLabel">היום</p><h1><span>Pulse</span>Fit</h1></div>
+      <button class="streak-pill" data-go="stats" aria-label="מעבר לרצף האימונים"><span>🔥</span><b id="streakValue">0</b><small>שבועות</small></button>
+    </header>
+    <main id="mainContent">
+      <section class="view active" id="plannerView" data-view="planner">
+        <div class="hero-card">
+          <div class="hero-copy"><span class="status-dot"></span><span>השבוע שלך</span><h2>שלושה אימונים.<br><em>תוכנית אחת חכמה.</em></h2><p>איזון נכון בין עומס, זוויות וגיוון — מוכן בלחיצה.</p></div>
+          <div class="hero-mark" aria-hidden="true"><span>3</span><small>DAYS</small></div>
+          <button class="primary-btn" id="generateBtn"><span>⚡</span> בנה לי את השבוע</button>
+        </div>
+        <div class="section-head"><div><p class="kicker">התוכנית הפעילה</p><h2>השבוע הקרוב</h2></div><button class="icon-btn" id="rerollAll" aria-label="ערבב מחדש">↻</button></div>
+        <div id="weekPlan" class="week-plan"></div>
+      </section>
+
+      <section class="view" id="workoutView" data-view="workout">
+        <div id="workoutEmpty" class="empty-state"><div class="empty-icon">⚡</div><h2>עוד אין אימון פעיל</h2><p>בחר אימון מהתוכנית השבועית והתחל להתאמן.</p><button class="primary-btn" data-go="planner">לתוכנית השבועית</button></div>
+        <div id="activeWorkout" hidden>
+          <div class="workout-header"><div><p class="kicker" id="activeDayLabel">אימון 1</p><h2 id="activeTitle">חזה + יד אחורית</h2></div><div class="elapsed"><span id="elapsedTime">00:00</span><small>זמן אימון</small></div></div>
+          <div class="progress-line"><span id="workoutProgress"></span></div>
+          <div id="activeExercises" class="active-list"></div>
+          <button class="finish-btn" id="finishWorkout">סיום אימון <span>🏁</span></button>
+        </div>
+      </section>
+
+      <section class="view" id="libraryView" data-view="library">
+        <div class="section-head sticky-title"><div><p class="kicker">48 תרגילים</p><h2>מאגר התרגילים</h2></div><button class="icon-btn" id="searchToggle" aria-label="חיפוש">⌕</button></div>
+        <div class="search-wrap" id="searchWrap"><input id="exerciseSearch" type="search" placeholder="חיפוש תרגיל או ציוד…" autocomplete="off"></div>
+        <div class="chips" id="muscleFilters"></div>
+        <div id="exerciseGrid" class="exercise-grid"></div>
+      </section>
+
+      <section class="view" id="statsView" data-view="stats">
+        <div class="section-head"><div><p class="kicker">הביצועים שלך</p><h2>היסטוריה ומדדים</h2></div><div class="metric-badge">LIVE</div></div>
+        <div class="stats-grid"><article class="metric-card lime"><span>רצף</span><strong id="statsStreak">0</strong><small>שבועות ברצף</small></article><article class="metric-card"><span>אימונים</span><strong id="totalWorkouts">0</strong><small>הושלמו</small></article><article class="metric-card"><span>נפח כולל</span><strong id="totalVolume">0</strong><small>ק״ג</small></article></div>
+        <article class="chart-card"><div class="card-title"><div><p class="kicker">נפח הרמה</p><h3>4 השבועות האחרונים</h3></div><span class="trend">↗ התקדמות</span></div><canvas id="volumeChart" width="640" height="300" aria-label="גרף נפח אימונים"></canvas></article>
+        <div class="section-head compact"><h2>אימונים אחרונים</h2></div><div id="historyList" class="history-list"></div>
+      </section>
+    </main>
+    <nav class="bottom-nav" aria-label="ניווט ראשי">
+      <button class="nav-item active" data-target="planner"><span>⚡</span><small>שבועי</small></button>
+      <button class="nav-item" data-target="workout"><span>🏋️</span><small>אימון</small><i id="activeDot"></i></button>
+      <button class="nav-item" data-target="library"><span>▦</span><small>תרגילים</small></button>
+      <button class="nav-item" data-target="stats"><span>▥</span><small>מדדים</small></button>
+    </nav>
+  </div>
+
+  <div class="timer-dock" id="timerDock" hidden><button id="timerDismiss" aria-label="סגירת טיימר">×</button><div class="timer-ring"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19"></circle><circle id="timerArc" cx="22" cy="22" r="19"></circle></svg><strong id="timerValue">90</strong></div><div><b>זמן מנוחה</b><small>נשימה עמוקה. הסט הבא שלך.</small></div><button class="skip-btn" id="timerSkip">דלג</button></div>
+
+  <div class="modal" id="exerciseModal" aria-hidden="true"><div class="modal-sheet"><button class="modal-close" data-close="exerciseModal">×</button><div id="modalVisual" class="exercise-visual large"></div><p class="kicker" id="modalMeta"></p><h2 id="modalName"></h2><p class="english" id="modalEnglish"></p><div class="cue-box"><b>דגשי ביצוע</b><p id="modalCue"></p></div></div></div>
+  <div class="modal finish-modal" id="finishModal" aria-hidden="true"><canvas id="confettiCanvas"></canvas><div class="finish-content"><div class="trophy">✓</div><p class="kicker">האימון הושלם</p><h2>עבודה מעולה!</h2><p>עוד צעד חזק בדרך לגרסה הטובה שלך.</p><div class="finish-stats"><div><strong id="finishDuration">0</strong><span>דקות</span></div><div><strong id="finishVolume">0</strong><span>ק״ג נפח</span></div><div><strong id="finishSets">0</strong><span>סטים</span></div></div><a class="health-btn" id="healthShortcut" href="#"><span>♥</span> הוסף ל־Apple Health</a><button class="ghost-btn" id="finishClose">חזרה למדדים</button><small class="shortcut-note">נדרש קיצור דרך בשם “Log Workout” באפליקציית קיצורים.</small></div></div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
