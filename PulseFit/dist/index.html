@@ -3,12 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#070b0d">
+  <meta name="theme-color" content="#f2f2f7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="PulseFit">
+  <meta name="apple-mobile-web-app-title" content="GuyFit">
   <meta name="format-detection" content="telephone=no">
-  <title>PulseFit — מתכנן אימונים</title>
+  <title>GuyFit — מתכנן אימונים</title>
   <meta name="description" content="אפליקציית אימוני כוח חכמה בעברית, מותאמת לאייפון ועובדת גם ללא חיבור.">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="icon-180.png">
@@ -17,23 +18,24 @@
   <link rel="stylesheet" href="exercise-atlas.css">
   <link rel="stylesheet" href="upgrade.css">
   <link rel="stylesheet" href="personal.css">
+  <link rel="stylesheet" href="apple.css">
 </head>
 <body>
   <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
   <div id="appShell">
     <header class="topbar">
-      <div><p class="eyebrow" id="todayLabel">היום</p><h1><span>Pulse</span>Fit</h1></div>
-      <button class="streak-pill" data-go="stats" aria-label="מעבר לרצף האימונים"><span>🔥</span><b id="streakValue">0</b><small>שבועות</small></button>
+      <div><p class="eyebrow" id="todayLabel">היום</p><h1><span>Guy</span>Fit</h1></div>
+      <button class="streak-pill" data-go="stats" aria-label="מעבר לרצף האימונים"><span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></span><b id="streakValue">0</b><small>שבועות</small></button>
     </header>
     <main id="mainContent">
       <section class="view active" id="plannerView" data-view="planner">
         <div class="hero-card">
-          <div class="hero-copy"><span class="status-dot"></span><span>השבוע שלך</span><h2>השבוע שלך.<br><em>בדיוק בדרך שלך.</em></h2><p>אתה בוחר את השרירים. אנחנו בונים את האימון. כל צעד קטן נחשב.</p></div>
+          <div class="hero-copy"><span>תוכנית אישית · בקצב שלך</span><h2>זמן לעצמך.<br><em>כוח לשבוע שלך.</em></h2><p>בחר מה לאמן. התוכנית, הסטים וההתקדמות שלך — במקום אחד.</p></div>
           <div class="hero-mark" aria-hidden="true"><span id="weekDayCount">4</span><small>DAYS</small></div>
-          <button class="primary-btn" id="generateBtn"><span>⚡</span> בנה אימונים לשבוע הקרוב</button>
+          <button class="primary-btn" id="generateBtn"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="4"/><path d="M7 3v4m10-4v4M3 11h18m-13 5h2m4 0h2"/></svg> תכנן את השבוע שלך</button>
         </div>
         <div id="weeklyProgress" class="weekly-progress" role="status"></div>
-        <div class="section-head"><div><p class="kicker">התוכנית הפעילה</p><h2>השבוע הקרוב</h2></div><button class="icon-btn" id="rerollAll" aria-label="ערוך את הרכב השבוע">↻</button></div>
+        <div class="section-head"><div><p class="kicker">התוכנית הפעילה</p><h2>השבוע הקרוב</h2></div><button class="icon-btn" id="rerollAll" aria-label="ערוך את הרכב השבוע"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 4 5 5M4 20l4-1L20 7a2.1 2.1 0 0 0-3-3L5 16z"/></svg></button></div>
         <button class="ghost-btn" id="addLegDay">＋ הוסף אימון רגליים לתוכנית הקיימת</button>
         <div id="weekPlan" class="week-plan"></div>
       </section>
@@ -49,30 +51,30 @@
       </section>
 
       <section class="view" id="libraryView" data-view="library">
-        <div class="section-head sticky-title"><div><p class="kicker" id="catalogCount">55 תרגילים</p><h2>מאגר התרגילים</h2></div><button class="icon-btn" id="searchToggle" aria-label="חיפוש">⌕</button></div>
-        <div class="search-wrap" id="searchWrap"><input id="exerciseSearch" type="search" placeholder="חיפוש תרגיל או ציוד…" autocomplete="off"></div>
+        <div class="section-head sticky-title"><div><p class="kicker" id="catalogCount">55 תרגילים</p><h2>מאגר התרגילים</h2></div><button class="icon-btn" id="searchToggle" aria-label="חיפוש"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button></div>
+        <div class="search-wrap" id="searchWrap"><input id="exerciseSearch" aria-label="חיפוש במאגר התרגילים" type="search" placeholder="חיפוש תרגיל או ציוד…" autocomplete="off"></div>
         <div class="chips" id="muscleFilters"></div>
         <div id="exerciseGrid" class="exercise-grid"></div>
       </section>
 
       <section class="view" id="statsView" data-view="stats">
-        <div class="section-head"><div><p class="kicker">הביצועים שלך</p><h2>היסטוריה ומדדים</h2></div><div class="metric-badge">LIVE</div></div>
+        <div class="section-head"><div><p class="kicker">הביצועים שלך</p><h2>היסטוריה ומדדים</h2></div><div class="metric-badge">ההתקדמות שלך</div></div>
         <div class="stats-grid"><article class="metric-card lime"><span>רצף</span><strong id="statsStreak">0</strong><small>שבועות ברצף</small></article><article class="metric-card"><span>אימונים</span><strong id="totalWorkouts">0</strong><small>הושלמו</small></article><article class="metric-card"><span>נפח כולל</span><strong id="totalVolume">0</strong><small>ק״ג</small></article></div>
         <article class="chart-card"><div class="card-title"><div><p class="kicker">נפח הרמה</p><h3>4 השבועות האחרונים</h3></div><span class="trend">נפח אימון</span></div><canvas id="volumeChart" width="640" height="300" aria-label="גרף נפח אימונים"></canvas></article>
         <article class="chart-card"><h3>התקדמות בתרגיל</h3><label for="statsExercise">בחר תרגיל</label><select id="statsExercise"></select><div id="exerciseProgress"></div><p id="muscleSummary"></p></article><article class="chart-card"><h3>גיבוי מקומי</h3><p>מומלץ לייצא לפני עדכון. אחסון בדפדפן אינו גיבוי.</p><button class="ghost-btn" id="exportBackup">הורד גיבוי JSON</button><label class="ghost-btn">שחזר גיבוי <input id="importBackup" type="file" accept="application/json,.json"></label></article><div class="section-head compact"><h2>אימונים אחרונים</h2></div><div id="workoutDetails" class="chart-card"></div><div id="historyList" class="history-list"></div>
       </section>
     </main>
     <nav class="bottom-nav" aria-label="ניווט ראשי">
-      <button class="nav-item active" data-target="planner"><span>⚡</span><small>שבועי</small></button>
-      <button class="nav-item" data-target="workout"><span>🏋️</span><small>אימון</small><i id="activeDot"></i></button>
-      <button class="nav-item" data-target="library"><span>▦</span><small>תרגילים</small></button>
-      <button class="nav-item" data-target="stats"><span>▥</span><small>מדדים</small></button>
+      <button class="nav-item active" aria-current="page" data-target="planner"><span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="4"/><path d="M7 3v4m10-4v4M3 11h18m-13 5h2m4 0h2"/></svg></span><small>השבוע</small></button>
+      <button class="nav-item" data-target="workout"><span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 8 8 8M4 7l3-3m10 16 3-3M3 10l7-7m4 18 7-7M6 13l7-7m-2 12 7-7"/></svg></span><small>אימון</small><i id="activeDot"></i></button>
+      <button class="nav-item" data-target="library"><span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg></span><small>תרגילים</small></button>
+      <button class="nav-item" data-target="stats"><span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v16h16M9 15v-4m5 4V7m5 8v-5"/></svg></span><small>התקדמות</small></button>
     </nav>
   </div>
 
   <div class="timer-dock" id="timerDock" hidden><button id="timerDismiss" aria-label="הרחב טיימר">×</button><div class="timer-ring"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19"></circle><circle id="timerArc" cx="22" cy="22" r="19"></circle></svg><strong id="timerValue">90</strong></div><div><b>זמן מנוחה</b><small>מזעור אינו מבטל את הספירה.</small></div><button class="skip-btn" id="timerSkip">דלג</button></div>
 
-  <div class="modal" id="exerciseModal" aria-hidden="true"><div class="modal-sheet"><button class="modal-close" data-close="exerciseModal">×</button><div id="modalVisual" class="exercise-visual large"></div><p class="kicker" id="modalMeta"></p><h2 id="modalName"></h2><p class="english" id="modalEnglish"></p><div class="cue-box"><b>דגשי ביצוע</b><div id="modalCue"></div></div></div></div>
+  <div class="modal" id="exerciseModal" aria-hidden="true"><div class="modal-sheet"><button class="modal-close" aria-label="סגור פרטי תרגיל" data-close="exerciseModal">×</button><div id="modalVisual" class="exercise-visual large"></div><p class="kicker" id="modalMeta"></p><h2 id="modalName"></h2><p class="english" id="modalEnglish"></p><div class="cue-box"><b>דגשי ביצוע</b><div id="modalCue"></div></div></div></div>
   <div class="modal finish-modal" id="finishModal" aria-hidden="true"><canvas id="confettiCanvas"></canvas><div class="finish-content"><div class="trophy">✓</div><p class="kicker">האימון הושלם</p><h2>עבודה מעולה!</h2><p>עוד צעד חזק בדרך לגרסה הטובה שלך.</p><div class="finish-stats"><div><strong id="finishDuration">0</strong><span>דקות</span></div><div><strong id="finishVolume">0</strong><span>ק״ג נפח</span></div><div><strong id="finishSets">0</strong><span>סטים</span></div></div><a class="health-btn" id="healthShortcut" href="#"><span>♥</span> הוסף ל־Apple Health</a><button class="ghost-btn" id="finishClose">חזרה למדדים</button><small class="shortcut-note">נדרש קיצור דרך בשם “Log Workout” באפליקציית קיצורים.</small></div></div>
   <div class="toast" id="toast" role="status"></div>
   <div class="modal" id="replaceModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="replaceTitle"><div class="modal-sheet replacement-sheet"><button class="modal-close" id="replaceClose" aria-label="סגור">×</button><h2 id="replaceTitle">החלפת תרגיל</h2><input id="replaceSearch" type="search" placeholder="חיפוש תרגיל" aria-label="חיפוש תרגיל"><div class="filter-row"><select id="replaceMuscle" aria-label="שריר"></select><select id="replaceEquipment" aria-label="ציוד"></select></div><label id="permanentLabel"><input type="checkbox" id="replacePermanent"> עדכן גם את התוכנית הקבועה</label><p>סטים שבוצעו נשמרים תחת התרגיל המקורי. החלפה מתחילה סטים חדשים.</p><div id="replaceResults"></div></div></div>
