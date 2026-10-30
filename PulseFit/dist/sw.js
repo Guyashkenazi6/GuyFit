@@ -1,4 +1,4 @@
-const CACHE='pulsefit-v9';
+const CACHE='pulsefit-v10';
 const BASE=new URL('./',self.location.href);
 const ASSETS=['./','./index.html','./styles.css','./upgrade.css','./personal.css','./apple.css','./planner.js','./exercise-atlas.css','./app.js','./legs.js','./manifest.webmanifest','./icon.svg','./icon-180.png','./icon-192.png','./icon-512.png','./assets/chest-atlas.png','./assets/triceps-atlas.png','./assets/back-atlas.png','./assets/biceps-atlas.png','./assets/shoulders-atlas.png','./assets/core-atlas.png','./assets/legs/49.svg','./assets/legs/50.svg','./assets/legs/51.svg','./assets/legs/52.svg','./assets/legs/53.svg','./assets/legs/54.svg','./assets/legs/55.svg','./assets/legs/56.svg','./assets/legs/57.svg'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS))));

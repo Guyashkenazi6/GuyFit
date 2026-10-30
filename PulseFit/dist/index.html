@@ -3,8 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#f2f2f7" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#08090c">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="GuyFit">
@@ -30,9 +29,10 @@
     <main id="mainContent">
       <section class="view active" id="plannerView" data-view="planner">
         <div class="hero-card">
-          <div class="hero-copy"><span>תוכנית אישית · בקצב שלך</span><h2>זמן לעצמך.<br><em>כוח לשבוע שלך.</em></h2><p>בחר מה לאמן. התוכנית, הסטים וההתקדמות שלך — במקום אחד.</p></div>
+          <div class="hero-copy"><span>השבוע שלך</span><h2>השבוע שלך.<br><em>בדיוק בדרך שלך.</em></h2><p>אתה בוחר את השרירים. אנחנו בונים את האימון. כל צעד קטן נחשב.</p></div>
           <div class="hero-mark" aria-hidden="true"><span id="weekDayCount">4</span><small>DAYS</small></div>
-          <button class="primary-btn" id="generateBtn"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="4"/><path d="M7 3v4m10-4v4M3 11h18m-13 5h2m4 0h2"/></svg> תכנן את השבוע שלך</button>
+          <button class="primary-btn" id="generateBtn"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="4"/><path d="M7 3v4m10-4v4M3 11h18m-13 5h2m4 0h2"/></svg> בנה אימונים לשבוע הקרוב</button>
+          <button class="hero-quick" id="nextWorkout" hidden><span><b id="nextWorkoutLabel"></b><small id="nextWorkoutDetail"></small></span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
         </div>
         <div id="weeklyProgress" class="weekly-progress" role="status"></div>
         <div class="section-head"><div><p class="kicker">התוכנית הפעילה</p><h2>השבוע הקרוב</h2></div><button class="icon-btn" id="rerollAll" aria-label="ערוך את הרכב השבוע"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 4 5 5M4 20l4-1L20 7a2.1 2.1 0 0 0-3-3L5 16z"/></svg></button></div>
