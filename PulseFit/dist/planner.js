@@ -86,6 +86,7 @@ function toggleDayCompletion(index) {
 }
 
 function renderWeeklyProgress() {
+  renderNextWorkout();
   const total = state.week?.length || 0;
   const done = (state.week || []).filter(day => day.completedAt).length;
   const percent = total ? Math.round(done / total * 100) : 0;
@@ -119,3 +120,22 @@ builder.addEventListener('close', () => builderReturnFocus?.focus());
 $('#generateBtn').onclick = openWeekBuilder;
 $('#rerollAll').onclick = openWeekBuilder;
 renderWeeklyProgress();
+
+// A contextual shortcut, derived only from existing state. It never changes the plan.
+function renderNextWorkout() {
+  const button = $('#nextWorkout');
+  if (!button) return;
+  const next = (state.week || []).findIndex(day => !day.completedAt);
+  button.hidden = !state.active && next < 0;
+  if (button.hidden) return;
+  $('#nextWorkoutLabel').textContent = state.active ? 'ממשיכים מאיפה שעצרת' : 'מוכן לאימון הבא?';
+  $('#nextWorkoutDetail').textContent = state.active ? state.active.title : state.week[next].title;
+  button.onclick = () => {
+    if (state.active) go('workout');
+    else {
+      // Resolve again at click time; completion may have changed since rendering.
+      const index = (state.week || []).findIndex(day => !day.completedAt);
+      if (index >= 0) startWorkout(index);
+    }
+  };
+}

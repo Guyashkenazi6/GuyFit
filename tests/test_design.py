@@ -9,9 +9,10 @@ class DesignTests(unittest.TestCase):
     setUp = test_app.AppTests.setUp
     tearDown = test_app.AppTests.tearDown
 
-    def test_system_appearance_contrast_and_navigation(self):
+    def test_original_dark_identity_contrast_and_navigation(self):
         for scheme in ['light', 'dark']:
             self.page.emulate_media(color_scheme=scheme)
+            self.assertEqual(self.page.locator('body').evaluate('e=>getComputedStyle(e).backgroundColor'), 'rgb(8, 9, 12)')
             colors = self.page.evaluate("""() => {
                 let s=getComputedStyle(document.documentElement);
                 return Object.fromEntries(['--text','--muted','--surface','--accent','--success'].map(k=>[k,s.getPropertyValue(k).trim()]));
@@ -64,5 +65,5 @@ class DesignTests(unittest.TestCase):
         self.context.set_offline(True)
         self.page.reload()
         self.assertEqual(self.page.title(), 'GuyFit — מתכנן אימונים')
-        self.assertTrue(self.page.evaluate("async()=>{let r=await fetch('./apple.css');return r.ok&&(await r.text()).includes('--accent: #0066cc')}"))
-        self.assertEqual(self.page.locator('.hero-card').evaluate('e=>getComputedStyle(e).backgroundColor'), 'rgb(255, 255, 255)')
+        self.assertTrue(self.page.evaluate("async()=>{let r=await fetch('./apple.css');return r.ok&&(await r.text()).includes('--success: #bdfc63')}"))
+        self.assertEqual(self.page.locator('body').evaluate('e=>getComputedStyle(e).backgroundColor'), 'rgb(8, 9, 12)')
