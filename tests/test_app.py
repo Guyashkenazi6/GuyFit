@@ -337,7 +337,7 @@ class AppTests(unittest.TestCase):
                 self.context.set_offline(True)
                 self.page.reload()
                 self.assertEqual(self.page.evaluate('state.active.exercises[0].logs[0].weight'), '25')
-                self.assertTrue(self.page.evaluate("async()=>{let cache=await caches.open('pulsefit-v7');return (await Promise.all(LEG_EXERCISES.map(e=>cache.match(e.image)))).every(Boolean)}"))
+                self.assertTrue(self.page.evaluate("async()=>{let cache=await caches.open('pulsefit-v8');return (await Promise.all(LEG_EXERCISES.map(e=>cache.match(e.image)))).every(Boolean)}"))
                 for exercise in self.page.evaluate('LEG_EXERCISES'):
                     self.assertTrue(self.page.evaluate("async path=>{let response=await fetch(path);return response.ok&&(await response.text()).includes('<svg')}",exercise['image']))
                 self.assertTrue(self.page.evaluate('document.documentElement.scrollWidth<=innerWidth'))

@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="exercise-atlas.css">
   <link rel="stylesheet" href="upgrade.css">
+  <link rel="stylesheet" href="personal.css">
 </head>
 <body>
   <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
@@ -27,11 +28,12 @@
     <main id="mainContent">
       <section class="view active" id="plannerView" data-view="planner">
         <div class="hero-card">
-          <div class="hero-copy"><span class="status-dot"></span><span>השבוע שלך</span><h2>האימונים שלך.<br><em>תוכנית אחת חכמה.</em></h2><p>איזון נכון בין עומס, זוויות וגיוון — מוכן בלחיצה.</p></div>
+          <div class="hero-copy"><span class="status-dot"></span><span>השבוע שלך</span><h2>השבוע שלך.<br><em>בדיוק בדרך שלך.</em></h2><p>אתה בוחר את השרירים. אנחנו בונים את האימון. כל צעד קטן נחשב.</p></div>
           <div class="hero-mark" aria-hidden="true"><span id="weekDayCount">4</span><small>DAYS</small></div>
-          <button class="primary-btn" id="generateBtn"><span>⚡</span> בנה לי את השבוע</button>
+          <button class="primary-btn" id="generateBtn"><span>⚡</span> בנה אימונים לשבוע הקרוב</button>
         </div>
-        <div class="section-head"><div><p class="kicker">התוכנית הפעילה</p><h2>השבוע הקרוב</h2></div><button class="icon-btn" id="rerollAll" aria-label="ערבב מחדש">↻</button></div>
+        <div id="weeklyProgress" class="weekly-progress" role="status"></div>
+        <div class="section-head"><div><p class="kicker">התוכנית הפעילה</p><h2>השבוע הקרוב</h2></div><button class="icon-btn" id="rerollAll" aria-label="ערוך את הרכב השבוע">↻</button></div>
         <button class="ghost-btn" id="addLegDay">＋ הוסף אימון רגליים לתוכנית הקיימת</button>
         <div id="weekPlan" class="week-plan"></div>
       </section>
@@ -76,5 +78,6 @@
   <div class="modal" id="replaceModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="replaceTitle"><div class="modal-sheet replacement-sheet"><button class="modal-close" id="replaceClose" aria-label="סגור">×</button><h2 id="replaceTitle">החלפת תרגיל</h2><input id="replaceSearch" type="search" placeholder="חיפוש תרגיל" aria-label="חיפוש תרגיל"><div class="filter-row"><select id="replaceMuscle" aria-label="שריר"></select><select id="replaceEquipment" aria-label="ציוד"></select></div><label id="permanentLabel"><input type="checkbox" id="replacePermanent"> עדכן גם את התוכנית הקבועה</label><p>סטים שבוצעו נשמרים תחת התרגיל המקורי. החלפה מתחילה סטים חדשים.</p><div id="replaceResults"></div></div></div>
   <script src="legs.js"></script>
 <script src="app.js"></script>
+<script src="planner.js"></script>
 </body>
 </html>
